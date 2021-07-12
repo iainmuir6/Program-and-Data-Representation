@@ -1,0 +1,69 @@
+B000 000 Iain Muir (iam9ez) - March 24th, 2020
+B000 001 bubblesort.ibcm
+C00F 002	jmp	OLoop	skip around vars
+0000 003 i	dw		var: incremented var for outer loop
+0004 004 j	dw		var: decremented var for inner loop
+0005 005 len	dw		var: length of array (hard-coded to 5)
+0000 006 temp 	dw		var: temporary value for swap
+0000 007 zero	dw		var: zero
+0001 008 one	dw		var: one
+3000 009 ldit	dw		var: used for array load instruction
+4000 00A strit	dw		var: used for array store instruction	
+0040 00B addr	dw		var: base address of array (hard-coded to 40)
+0000 00C A[j]	dw		var: value of element at index j for sorting comparison
+0000 00D A[j-1] dw		var: value of element at index j-1 for sorting comparison
+B000 00E			blank
+3005 00F OLoop	load 	len	while (i < len)
+6003 010 	sub  	i	len - i
+E03B 011 	jmpl	Oxit	jump to outer loop exit if not
+D03B 012	jmpe	Oxit	" "
+3004 013 ILoop	load	j	while (j > i)
+6003 014 	sub	i 	j - i
+E037 015	jmpl 	Ixit	jump to inner exit if not
+D037 016	jmpe 	Ixit 	" "
+3009 017	load	ldit	loads array load instruction (3000)
+500B 018	add	addr	3000 + 40 
+5004 019	add	j	3040 + j
+4026 01A	store	doit-1	store first load instruction
+6008 01B	sub	one	3040 + j - 1
+4028 01C	store 	doit-2	store second load instruction
+300A 01D	load	strit	loads array store instruction (4000)
+500B 01E	add	addr	4000 + 40
+5004 01F	add	j	4040 + j
+4030 020	store	doit-3	store first store instruction
+6008 021	sub 	one	4040 + j - 1
+4032 022	store	doit-4	store second store instruction
+3004 023	load	j	j--
+6008 024	sub 	one	" "
+4004 025	store	j	" "
+0000 026 doit-1	dw	0	
+400C 027 	store   A[j]
+0000 028 doit-2 dw      0
+400D 029 	store	A[j-1]	if A[j-1] > A[j]
+600C 02A	sub	A[j]	" "
+E013 02B	jmpl	ILoop	jump to inner loop
+D013 02C	jmpe 	ILoop 	" "
+300C 02D	load	A[j]	SWAP  - store A[j] as temp
+4006 02E	store	temp	SWAP
+300D 02F	load	A[j-1]	SWAP  - store A[j-1] as A[j]
+0000 030 doit-3	dw 	0	SWAP
+3006 031 	load	temp	SWAP  - store temp as A[j-1]
+0000 032 doit-4	dw	0	SWAP
+3005 033 	load 	len	reset j to len-1
+6008 034	sub	one	" "
+4004 035	store	j	" "
+C013 036 	jmp	ILoop	jump to inner loop
+3003 037 Ixit	load	i	i++
+5008 038 	add	one 	" "	
+4003 039	store	i	" "
+C00F 03A	jmp	OLoop	jump to outer loop
+0000 03B Oxit	halt		end of program
+B000 03C			blank
+B000 03D			blank
+B000 03E			blank
+B000 03F			blank
+000F 040 arr[0]
+0008 041 arr[1]
+000B 042 arr[2]
+0002 043 arr[3]
+000A 044 arr[4]
