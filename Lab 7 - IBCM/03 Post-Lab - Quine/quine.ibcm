@@ -1,0 +1,25 @@
+B000	000	Iain Muir (iam9ez) - March 26th, 2020			
+B000	001	quine.ibcm			
+C00A	002		jmp	start	
+0000	003	i	dw		var: incremented i
+0018	004	len	dw		var: length of the program/quine
+0000	005	zero	dw		var: zero
+0001	006	one	dw		var: one
+3000	007	ldit	dw		var: load instruction
+B000	008				blank
+B000	009				blank
+3005	00A	start	load	zero	reset i for subsequent quine
+4003	00B		store	i	" "
+3004	00C	loop	load	len	if (i < length of program)
+6003	00D		sub 	i	" "
+E018	00E		jmpl	xit	jump to exit if accm < 0
+3007	00F		load	ldit	load the load instruction
+5003	010		add	i	3000 + i
+4012	011		store	doit	store the load instruction
+0000	012	doit	dw	0	load line in the program
+1800	013		printH		print line in program
+3003	014		load	i	i++
+5006	015		add	one	" "
+4003	016		store	i	" "
+C00C	017		jmp	loop	jump to beginning of loop
+0000	018	xit	halt		end of program
