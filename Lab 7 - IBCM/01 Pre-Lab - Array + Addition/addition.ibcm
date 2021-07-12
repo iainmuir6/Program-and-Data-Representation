@@ -1,0 +1,37 @@
+B000 000 Iain Muir (iam9ez) - March 24th, 2020
+B000 001 addition.ibcm
+C00A 002       jmp     loop   skip around vars
+0000 003 a     dw      	      var: first user input
+0000 004 b     dw	      var: second user input
+0000 005 c     dw	      var: third user input
+0000 006 zero  dw	      var: zero
+0000 007 s     dw	      var: sum of array values	
+B000 008		      blank
+B000 009		      blank
+1000 00A loop  readH	      ask for first user input
+4003 00B       store   a      store first user input
+3007 00C       load    s      s += a
+5003 00D       add     a      " "
+4007 00E       store   s      save the sum
+1000 00F       readH	      ask for second user input
+4004 010       store   b      stores second user input
+3007 011       load    s      s += b
+5004 012       add     b      " "
+4007 013       store   s      save the sum
+1000 014       readH	      ask for third user input
+4005 015       store   c      stores third user input
+3007 016       load    s      s += c
+5005 017       add     c      " "
+4007 018       store   s      save the sum
+1800 019       printH  	      print the sum
+D01E 01A       jmpe    xit    jump to exit if accm = 0
+3006 01B       load    zero   reset the sum to 0
+4007 01C       store   s      " "
+D00A 01D       jmp     loop   jump to beginning of loop
+3003 01E  xit  load    a      print each of the three values
+1800 01F       printH  	      print a
+3004 01G       load    b
+1800 01F       printH	      print b
+3005 020       load    c
+1800 021       printH         print c
+0000 022       halt	      end of program

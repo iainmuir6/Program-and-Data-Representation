@@ -1,0 +1,53 @@
+B000 000 Iain Muir (iam9ez) - March 24th, 2020
+B000 001 array.ibcm
+C00A 002	jmp	start	skip around vars
+0000 003 max	dw		var: max value in array (initially set to 0)
+0005 004 len	dw		var: length of array (hard-coded to 5)
+0000 005 i	dw		var: incremented i
+0000 006 zero	dw		var: zero
+0001 007 one	dw		var: one
+3000 008 ldit	dw		var: used for array load instruction
+0030 009 addr	dw		var: base address of array (hard-coded to 30)
+3030 00A start	load    a[0]	set max value to a[0]
+4003 00B	store	max	" "
+3004 00C loop   load	len	while (i < len)
+6005 00D 	sub 	i	len - i
+E01F 00E 	jmpl	xit	jump to exit if accm <= 0
+D01F 00F	jmpe	xit	" "
+3008 010	load 	ldit	loads array load instruction (3000)
+5009 011	add	addr 	3000 + 30
+5005 012	add	i	3030 + i
+4017 013	store	doit	stores load instruction to address 17
+3005 014	load	i	i++
+5007 015	add 	one	" "
+4005 016	store	i 	" "
+0000 017 doit	dw	0	if (a[i] > max)
+6003 018 	sub	max	a[i] - max
+E00C 019	jmpl 	loop	jump to beginning of loop if a[i] < max
+3017 01A	load	doit	loads array load instruction
+401C 01B	store 	index	stores in index variable
+0000 01C index	dw	0	loads element at index of new value
+4003 01D	store	max	max = a[i]
+C00C 01E	jmp	loop	jump to loop to continune iteration	
+3003 01F xit	load 	max	once through the array, load max value
+1800 020	printH		print max value	 
+0000 021	halt		end of program
+B000 022			blank
+B000 023			blank
+B000 024			blank
+B000 025			blank
+B000 026			blank
+B000 027			blank
+B000 028			blank
+B000 029			blank
+B000 02A			blank
+B000 02B			blank
+B000 02C			blank
+B000 02D			blank
+B000 02E			blank
+B000 02F			blank
+000C 030 arr[0]
+0009 031 arr[1]
+000F 032 arr[2]
+000B 033 arr[3]
+0008 034 arr[4]
