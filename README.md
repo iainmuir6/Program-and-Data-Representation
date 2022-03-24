@@ -1,4 +1,6 @@
-<img src='https://www.salesforce.org/wp-content/uploads/2021/02/uva-university-of-virginia-logo.png' width=300 align='center'/>
+<p align="center">
+  <img src='https://www.salesforce.org/wp-content/uploads/2021/02/uva-university-of-virginia-logo.png' width=300 align='center'/>
+</p>  
 
 # CS 2150 Program and Data Representation
 
